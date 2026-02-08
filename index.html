@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gat&eacute;</title>
+  </head>
+  <body>
+    <div class="gate">
+      <div class="taima">
+        <button id="taimaStart" class="taima__start"></button>
+        <button id="taimaReset" class="taima__reset"></button>
+        <audio id="taimaBell" class="taima__bell" src="/bell.wav"></audio>
+      </div>
+      <div id="settings" class="settings">
+        <input
+          id="settingsLength"
+          class="settings__length"
+          type="number"
+          value="20"
+          max="99"
+          pattern="\d*"
+        />
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
