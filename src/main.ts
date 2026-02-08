@@ -108,6 +108,8 @@ function handleTaimaPaused() {
 }
 
 function handleTaimaUnpaused() {
+  debugger
+  if (taimaBell?.paused) taimaBell.play();
   taimaReset?.classList.remove("taima__reset--active");
 }
 
