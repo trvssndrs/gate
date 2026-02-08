@@ -55,7 +55,22 @@ function handleTaimaResetClick() {
   taima.reset();
 }
 
-function handleFirstTaimaStartClick() {
+function handleFirstTaimaStartClick(
+  event: Event,
+  countDown: number | undefined = 20,
+) {
+  settings?.classList.add("settings--hidden");
+
+  if (taimaStart && countDown > 0) {
+    taimaStart.innerHTML = `<span class="taima__count">${countDown.toString()}</span>`;
+
+    setTimeout(() => {
+      handleFirstTaimaStartClick(event, countDown - 1);
+    }, 1000);
+
+    return;
+  }
+
   taima.start();
   taimaStart?.removeEventListener("click", handleFirstTaimaStartClick);
   taimaStart?.addEventListener("click", handleSubsequentTaimaStartClicks);
@@ -87,7 +102,6 @@ function handleTaimaFinished() {
 }
 
 function handleTaimaStart() {
-  settings?.classList.add("settings--hidden");
   taimaBell?.play();
 }
 
@@ -98,7 +112,7 @@ function handleTaimaTick() {
     start: new Date(),
     end: addMilliseconds(new Date(), taima.count),
   });
-  const value = (minutes ? minutes : seconds)?.toString() ?? "";
+  const value = (minutes ? minutes + 1 : seconds)?.toString() ?? "";
   const deg1 = taima.percentComplete < 0.5 ? 90 : -90;
   const deg2 = 360 * taima.percentComplete - 90;
   const color1 = taima.percentComplete < 0.5 ? "black" : "white";
