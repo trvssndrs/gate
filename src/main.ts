@@ -2,6 +2,7 @@ import { addMilliseconds, intervalToDuration } from "date-fns";
 import Taima from "./taima";
 import "./style.css";
 
+let wakeLock: WakeLockSentinel | null;
 const settings = document.getElementById("settings");
 const settingsLength =
   document.querySelector<HTMLInputElement>("#settingsLength");
@@ -58,6 +59,10 @@ function handleFirstTaimaStartClick() {
   taima.start();
   taimaStart?.removeEventListener("click", handleFirstTaimaStartClick);
   taimaStart?.addEventListener("click", handleSubsequentTaimaStartClicks);
+  navigator.wakeLock
+    .request("screen")
+    .then((sentinel) => (wakeLock = sentinel))
+    .catch((e) => console.log(e));
 }
 
 function handleSettingsLengthChange(e: Event) {
@@ -67,6 +72,7 @@ function handleSettingsLengthChange(e: Event) {
 function handleTaimaReset() {
   if (!taimaStart || !settings || !taimaReset) return;
 
+  wakeLock?.release();
   settings.classList.remove("settings--hidden");
   taimaReset.classList.remove("taima__reset--active");
   taimaStart.style.setProperty("background", "");
@@ -108,7 +114,6 @@ function handleTaimaPaused() {
 }
 
 function handleTaimaUnpaused() {
-  debugger
   if (taimaBell?.paused) taimaBell.play();
   taimaReset?.classList.remove("taima__reset--active");
 }
