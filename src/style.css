@@ -4,7 +4,7 @@ html {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-.gate {
+.app {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,14 +13,14 @@ html {
   margin-top: 2rem;
 }
 
-.taima {
+.counter {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.taima__start {
+.counter__start {
   border: none;
   margin: 0;
   padding: 0;
@@ -38,7 +38,7 @@ html {
     linear-gradient(-90deg, var(--black) 50%, transparent 50%);
 }
 
-.taima__start:after {
+.counter__start:after {
   content: "";
   display: block;
   position: relative;
@@ -48,7 +48,7 @@ html {
   background-color: var(--white);
 }
 
-.taima__count {
+.counter__count {
   position: absolute;
   bottom: 0;
   z-index: 1;
@@ -60,7 +60,7 @@ html {
   transform: translateY(-7rem);
 }
 
-.taima__reset {
+.counter__reset {
   display: none;
   position: absolute;
   margin-top: 4rem;
@@ -72,7 +72,7 @@ html {
   cursor: pointer;
 }
 
-.taima__reset--active {
+.counter__reset--active {
   display: block;
 }
 

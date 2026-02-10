@@ -1,19 +1,25 @@
 import EventEmitter from "eventemitter3";
+import type SettingsForm from "./SettingsForm";
 
-type Config = {
-  length: number;
-};
+export type CounterSetings = {
+  minutes: number;
+}
 
-class Taima extends EventEmitter {
-  length: number;
+class Counter extends EventEmitter {
+  settings: CounterSetings;
   count: number;
   percentComplete: number = 0;
   paused: boolean = false;
 
-  constructor({ length }: Config) {
+  constructor(settings: SettingsForm) {
     super();
-    this.length = length * 60 * 1000;
-    this.count = this.length;
+    this.settings = settings.toCounterSettings();
+    this.count = this.settings.minutes * 60 * 1000;
+
+    settings.on("change", (settings) => {
+      this.settings = settings;
+      this.reset();
+    })
   }
 
   start() {
@@ -32,13 +38,8 @@ class Taima extends EventEmitter {
 
   reset() {
     this.paused = false;
-    this.count = this.length;
+    this.count = this.settings.minutes;
     this.emit("reset");
-  }
-
-  setLength(length: number) {
-    this.length = length * 60 * 1000;
-    this.count = this.length;
   }
 
   #run() {
@@ -48,12 +49,12 @@ class Taima extends EventEmitter {
 
     if (this.count === 0) {
       this.emit("finished");
-      this.count = this.length;
+      this.count = this.settings.minutes * 60 * 1000;
       return;
     }
 
     this.count = this.count - 4;
-    this.percentComplete = 1 - this.count / this.length;
+    this.percentComplete = 1 - this.count / (this.settings.minutes * 60 * 1000);
 
     this.emit("tick");
 
@@ -63,4 +64,4 @@ class Taima extends EventEmitter {
   }
 }
 
-export default Taima;
+export default Counter;

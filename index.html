@@ -8,22 +8,23 @@
     <title>gat&eacute;</title>
   </head>
   <body>
-    <div class="gate">
-      <div class="taima">
-        <button id="taimaStart" class="taima__start"></button>
-        <button id="taimaReset" class="taima__reset"></button>
-        <audio id="taimaBell" class="taima__bell" src="/bell.wav"></audio>
-      </div>
-      <div id="settings" class="settings">
+    <div class="app">
+      <Form id="counter" class="counter">
+        <button type="button" name="start" id="counterStart" class="counter__start"></button>
+        <button type="button" name="reset" id="counterReset" class="counter__reset"></button>
+        <audio name="bell" id="counterBell" class="counter__bell" src="/bell.wav"></audio>
+      </Form>
+      <form id="settings" class="settings">
         <input
           id="settingsLength"
           class="settings__length"
+          name="length"
           type="number"
           value="20"
           max="99"
           pattern="\d*"
         />
-      </div>
+      </form>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
