@@ -1,0 +1,15 @@
+:root {
+  --black: rgba(32, 36, 37);
+  --white: rgba(239, 241, 245);
+}
+
+[data-theme='dark'] {
+  --black: rgba(239, 241, 245);
+  --white: rgba(32, 36, 37);
+}
+
+html {
+  box-sizing: border-box;
+  background-color: var(--white);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}

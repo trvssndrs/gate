@@ -1,11 +1,10 @@
-import "./style.css";
-import App from "./App";
-import SettingsForm from "./SettingsForm";
-import Counter from "./Counter";
-import CounterForm from "./CounterForm";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+import './assets/styles.css'
 
-new App();
-const settings = new SettingsForm();
-const counter = new Counter(settings);
-new CounterForm(counter);
+const app = createApp(App)
+const pinia = createPinia()
 
+app.use(pinia)
+app.mount('#app')
